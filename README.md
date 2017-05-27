@@ -1,1 +1,1 @@
-# python_trenning
+# python_training
