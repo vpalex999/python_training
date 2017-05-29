@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 import unittest
 from group import Group
 
+
 def is_alert_present(wd):
     try:
         wd.switch_to_alert().text
@@ -66,7 +67,6 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_link_text("groups").click()
 
     def login(self, wd, username, password):
-
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
