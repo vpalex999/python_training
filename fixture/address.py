@@ -10,6 +10,14 @@ class AddressHelper(object):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
+    def del_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+        # submit deletions
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
+
+
     def return_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
