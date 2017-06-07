@@ -6,24 +6,39 @@ class AddressHelper(object):
         self.app = app
 
     def new_address_page(self):
-        # open new address page
+        """Open new address page"""
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
     def del_first_contact(self):
+        """Delete first contact"""
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
         # submit deletions
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
 
-
     def return_home_page(self):
+        """Return home page"""
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
     def create(self, addr):
-        # create new address
+        """Create new address"""
+        wd = self.app.wd
+        self.input_fields(addr)
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+    def update_first_contact(self, addr):
+        """Update firs address"""
+        wd = self.app.wd
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        self.input_fields(addr)
+        # submit Update
+        wd.find_element_by_name("update").click()
+
+    def input_fields(self, addr):
+        """Input fields for address"""
         wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -88,8 +103,8 @@ class AddressHelper(object):
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("2017")
         # select Group
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option[1]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option[1]").click()
+        # if not wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option[1]").is_selected():
+        #     wd.find_element_by_xpath("//div[@id='content']/form/select[5]//option[1]").click()
         # Secondary
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
@@ -100,4 +115,3 @@ class AddressHelper(object):
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(addr.notes)
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
