@@ -10,7 +10,7 @@ class AddressHelper(object):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def del_first_contact(self):
+    def del_first_address(self):
         """Delete first contact"""
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
@@ -29,7 +29,7 @@ class AddressHelper(object):
         self.input_fields(addr)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def update_first_contact(self, addr):
+    def update_first_address(self, addr):
         """Update firs address"""
         wd = self.app.wd
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
