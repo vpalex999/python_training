@@ -60,3 +60,8 @@ class GroupHelper(object):
         # return to groups page
         wd = self.app.wd
         wd.find_element_by_link_text("group page").click()
+
+    def return_home_page(self):
+        """Return to home page"""
+        wd = self.app.wd
+        wd.find_element_by_xpath("/html/body/div/div[3]/ul/li[1]/a").click()

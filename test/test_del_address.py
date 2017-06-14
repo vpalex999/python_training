@@ -3,9 +3,7 @@
 from model.address import Address
 
 
-def test_add_address(app):
+def test_del_address(app):
 
-    app.open_home_page()
-    app.session.login(username="admin", password="secret")
     app.address.del_first_address()
-    app.session.logout()
+

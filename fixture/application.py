@@ -12,11 +12,20 @@ class Application(object):
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.address = AddressHelper(self)
+        self.open_home_page()
 
     def open_home_page(self):
         # open homepage
         wd = self.wd
         wd.get("http://localhost/addressbook/")
+
+
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
 
     def destroy(self):
         self.wd.quit()
