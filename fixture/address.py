@@ -8,7 +8,8 @@ class AddressHelper(object):
     def new_address_page(self):
         """Open new address page"""
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        if not(wd.current_url.endswith("/edit.php")):
+            wd.find_element_by_link_text("add new").click()
 
     def del_first_address(self):
         """Delete first contact"""
@@ -21,7 +22,8 @@ class AddressHelper(object):
     def return_home_page(self):
         """Return home page"""
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        if not not(wd.current_url.endswith("/addressbook/") and wd.find_element_by_name("searchstring")):
+            wd.find_element_by_link_text("home page").click()
 
     def create(self, addr):
         """Create new address"""

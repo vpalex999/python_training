@@ -8,7 +8,7 @@ from fixture.address import AddressHelper
 class Application(object):
     def __init__(self):
         self.wd = WebDriver()
-        self.wd.implicitly_wait(5)
+        # self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.address = AddressHelper(self)
@@ -17,7 +17,8 @@ class Application(object):
     def open_home_page(self):
         # open homepage
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        if not (wd.current_url.endswith("/addressbook/") and wd.find_element_by_name("searchstring")):
+            wd.get("http://localhost/addressbook/")
 
 
     def is_valid(self):
