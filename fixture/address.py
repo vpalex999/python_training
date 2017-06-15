@@ -115,3 +115,10 @@ class AddressHelper(object):
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(addr.notes)
+
+    def count(self):
+        """Check count address"""
+        wd = self.app.wd
+        return wd.find_elements_by_name("selected[]")
+
+
