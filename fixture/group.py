@@ -65,3 +65,9 @@ class GroupHelper(object):
         """Return to home page"""
         wd = self.app.wd
         wd.find_element_by_xpath("/html/body/div/div[3]/ul/li[1]/a").click()
+
+    def count(self):
+        """check count group"""
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
+
