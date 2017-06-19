@@ -51,6 +51,7 @@ class GroupHelper(object):
         self.select_first_group()
         # submit deletions
         wd.find_element_by_name("delete").click()
+        self.return_home_page()
 
     def select_first_group(self):
         wd = self.app.wd
