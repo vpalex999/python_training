@@ -15,9 +15,13 @@ class AddressHelper(object):
 
     def del_first_address(self):
         """Delete first contact"""
+        self.del_address_by_index(0)
+
+    def del_address_by_index(self, index):
+        """Delete first contact"""
         wd = self.app.wd
         self.return_home_page()
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # submit deletions
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
@@ -39,9 +43,14 @@ class AddressHelper(object):
 
     def update_first_address(self, addr):
         """Update firs address"""
+        self.update_address_by_index(addr, 0)
+
+    def update_address_by_index(self, addr, index):
+        """Update firs address"""
         wd = self.app.wd
         self.return_home_page()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        address = wd.find_elements_by_name("entry")
+        address[index].find_element_by_xpath("td[8]/a/img").click()
         self.input_fields(addr)
         # submit Update
         wd.find_element_by_name("update").click()
