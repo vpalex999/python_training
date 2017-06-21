@@ -20,4 +20,5 @@ class Group:
         return "{} {}".format(self.id, self.name)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name
+        return (self.id is None or other.id is None or self.id == other.id) and\
+               (self.name is None or other.name is None or self.name == other.name)
