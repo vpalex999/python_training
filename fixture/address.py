@@ -21,6 +21,7 @@ class AddressHelper(object):
         # submit deletions
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
+        self.address_chace = None
 
     def return_home_page(self):
         """Return home page"""
@@ -34,6 +35,7 @@ class AddressHelper(object):
         self.new_address_page()
         self.input_fields(addr)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.address_chace = None
 
     def update_first_address(self, addr):
         """Update firs address"""
@@ -43,6 +45,7 @@ class AddressHelper(object):
         self.input_fields(addr)
         # submit Update
         wd.find_element_by_name("update").click()
+        self.address_chace = None
 
     def input_fields(self, addr):
         """Input fields for address"""
@@ -143,18 +146,21 @@ class AddressHelper(object):
     def count(self):
         """Check count address"""
         wd = self.app.wd
-        return wd.find_elements_by_name("selected[]")
+        return len(wd.find_elements_by_name("selected[]"))
+
+    address_chace = None
 
     def get_addresses_list(self):
         """Great list with addresses"""
-        wd = self.app.wd
-        self.return_home_page()
-        addresses = []
-        for element in wd.find_elements_by_name("entry"):
-            td = element.find_elements_by_tag_name("td")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            addresses.append(Address(name=td[2].text, lname=td[1].text, id=id))
-        return addresses
+        if self.address_chace is None:
+            wd = self.app.wd
+            self.return_home_page()
+            self.address_chace = []
+            for element in wd.find_elements_by_name("entry"):
+                td = element.find_elements_by_tag_name("td")
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id))
+        return list(self.address_chace)
 
 
 

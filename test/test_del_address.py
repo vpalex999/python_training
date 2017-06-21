@@ -14,6 +14,6 @@ def test_del_address(app):
     old_addresses = app.address.get_addresses_list()
     app.address.del_first_address()
     new_addresses = app.address.get_addresses_list()
-    assert len(old_addresses) -1 == len(new_addresses)
+    assert len(old_addresses) -1 == app.address.count()
     old_addresses[0:1] = []
     assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)

@@ -12,7 +12,7 @@ def test_modify_address(app):
     address.id = old_addresses[0].id
     app.address.update_first_address(address)
     new_addresses = app.address.get_addresses_list()
-    assert len(old_addresses) == len(new_addresses)
+    assert len(old_addresses) == app.address.count()
     old_addresses[0] = address
     assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
 

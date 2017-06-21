@@ -11,7 +11,7 @@ def test_add_address(app):
                          "ivanov@ya.ru", "ivanov@rambler.ru", "ivanov.com", "г. Москва", "8(495)7654673", "йцукен")
     app.address.create(address)
     new_addresses = app.address.get_addresses_list()
-    assert len(old_addresses) + 1 == len(new_addresses)
+    assert len(old_addresses) + 1 == app.address.count()
     old_addresses.append(address)
     assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
 
@@ -22,6 +22,6 @@ def test_add_empty_address(app):
     address = Address()
     app.address.create(address)
     new_addresses = app.address.get_addresses_list()
-    assert len(old_addresses) + 1 == len(new_addresses)
+    assert len(old_addresses) + 1 == app.address.count()
     old_addresses.append(address)
     assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
