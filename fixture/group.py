@@ -34,7 +34,6 @@ class GroupHelper(object):
         self.fill_group_form(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
-        self.return_to_groups_page()
         self.return_home_page()
 
     def fill_group_form(self, group):
@@ -48,6 +47,7 @@ class GroupHelper(object):
     def delete_first_group(self):
         # select first group
         wd = self.app.wd
+        self.open_groups_page()
         self.select_first_group()
         # submit deletions
         wd.find_element_by_name("delete").click()
@@ -77,7 +77,6 @@ class GroupHelper(object):
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
-
 
     def count(self):
         """check count group"""

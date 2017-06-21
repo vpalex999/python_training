@@ -11,5 +11,9 @@ def test_del_address(app):
                                    "ivanov@ya.ru", "ivanov@rambler.ru", "ivanov.com", "г. Москва", "8(495)7654673",
                                    "йцукен"))
         app.address.return_home_page()
+    old_addresses = app.address.get_addresses_list()
     app.address.del_first_address()
-
+    new_addresses = app.address.get_addresses_list()
+    assert len(old_addresses) -1 == len(new_addresses)
+    old_addresses[0:1] = []
+    assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
