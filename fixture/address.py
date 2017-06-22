@@ -49,8 +49,7 @@ class AddressHelper(object):
         """Update firs address"""
         wd = self.app.wd
         self.return_home_page()
-        address = wd.find_elements_by_name("entry")
-        address[index].find_element_by_xpath("td[8]/a/img").click()
+        wd.find_elements_by_name("entry")[index].find_element_by_xpath("td[8]/a/img").click()
         self.input_fields(addr)
         # submit Update
         wd.find_element_by_name("update").click()
