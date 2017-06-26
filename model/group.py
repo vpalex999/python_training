@@ -17,7 +17,7 @@ class Group:
             return maxsize
 
     def __repr__(self):
-        return "{} {}".format(self.id, self.name)
+        return f"{self.id}, {self.name}"
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and\

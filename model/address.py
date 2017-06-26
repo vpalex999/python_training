@@ -9,7 +9,7 @@ class Address:
                  title=None, company=None, address=None, phone=None, mobile=None, workphone=None,\
                  fax=None, email=None, email2=None, email3=None, homepage=None,\
                  address2=None, phone2=None, notes=None,\
-                 id=None):
+                 id=None, all_phones_from_home_page=None):
         self.name = name
         self.mname = mname
         self.lname = lname
@@ -29,6 +29,7 @@ class Address:
         self.phone2 = phone2
         self.notes = notes
         self.id = id
+        self.all_phones_from_home_page = all_phones_from_home_page
 
     def id_or_max(self):
         if self.id:
@@ -37,7 +38,7 @@ class Address:
             return maxsize
 
     def __repr__(self):
-        return "{}, {}, {}".format(self.name, self.lname, self.id)
+        return f"{self.name}, {self.lname}, {self.id}"
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and\

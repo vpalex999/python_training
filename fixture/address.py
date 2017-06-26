@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from model.address import Address
 
 class AddressHelper(object):
@@ -49,11 +50,21 @@ class AddressHelper(object):
         """Update firs address"""
         wd = self.app.wd
         self.return_home_page()
-        wd.find_elements_by_name("entry")[index].find_element_by_xpath("td[8]/a/img").click()
+        self.open_contact_to_edit_by_index(index)
         self.input_fields(addr)
         # submit Update
         wd.find_element_by_name("update").click()
         self.address_chace = None
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.return_home_page()
+        wd.find_elements_by_name("entry")[index].find_element_by_xpath("td[8]/a/img").click()
+
+    def open_contact_to_view_by_index(self, index):
+        wd = self.app.wd
+        self.return_home_page()
+        wd.find_elements_by_name("entry")[index].find_element_by_xpath("td[7]/a/img").click()
 
     def input_fields(self, addr):
         """Input fields for address"""
@@ -167,10 +178,42 @@ class AddressHelper(object):
             for element in wd.find_elements_by_name("entry"):
                 td = element.find_elements_by_tag_name("td")
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id))
+                all_phone = td[5].text
+                if all_phone:
+                    self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id,
+                                                      all_phones_from_home_page=all_phone))
+                                                      # phone=all_phone[0], mobile=all_phone[1],
+                                                      # workphone=all_phone[2], phone2=all_phone[3]))
+                else:
+                    self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id))
+
         return list(self.address_chace)
 
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.return_home_page()
+        self.open_contact_to_edit_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        phone2 = wd.find_element_by_name("phone2").get_attribute("value")
+
+        return Address(name=firstname, lname=lastname, id=id, phone=homephone, workphone=workphone,
+                       mobile=mobilephone, phone2=phone2)
 
 
 
+    def get_addresse_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_to_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        phone2 = re.search("P: (.*)", text).group(1)
+
+        return Address(phone=homephone, workphone=workphone, mobile=mobilephone, phone2=phone2)
 
