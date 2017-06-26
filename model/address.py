@@ -9,7 +9,9 @@ class Address:
                  title=None, company=None, address=None, phone=None, mobile=None, workphone=None,\
                  fax=None, email=None, email2=None, email3=None, homepage=None,\
                  address2=None, phone2=None, notes=None,\
-                 id=None, all_phones_from_home_page=None):
+                 id=None, all_phones_from_home_page=None, \
+                 all_email_from_home_page=None, \
+                 all_address_from_home_page=None):
         self.name = name
         self.mname = mname
         self.lname = lname
@@ -29,7 +31,9 @@ class Address:
         self.phone2 = phone2
         self.notes = notes
         self.id = id
+        self.all_address_from_home_page = all_address_from_home_page
         self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_email_from_home_page = all_email_from_home_page
 
     def id_or_max(self):
         if self.id:
