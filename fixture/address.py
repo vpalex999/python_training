@@ -165,6 +165,7 @@ class AddressHelper(object):
     def count(self):
         """Check count address"""
         wd = self.app.wd
+        self.return_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     address_chace = None
