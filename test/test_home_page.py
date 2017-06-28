@@ -39,16 +39,13 @@ def test_view_contact_from_home_page_by_index(app):
     assert address_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(address_from_edit_page)
 
 
-def clear_email(s):
-    return re.sub("[() ]", "", s)
-
 def clear_phone(s):
     return re.sub("[() -]", "", s)
 
+
 def merge_email_like_on_home_page(address):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear_email(x),
-                                filter(lambda x: x is not None, [address.email, address.email2, address.email3]))))
+                            filter(lambda x: x is not None, [address.email, address.email2, address.email3])))
 
 
 def merge_phones_like_on_home_page(address):
