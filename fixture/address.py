@@ -28,6 +28,14 @@ class AddressHelper(object):
         wd.switch_to_alert().accept()
         self.address_chace = None
 
+    def del_all_address(self):
+        wd = self.app.wd
+        self.return_home_page()
+        wd.find_element_by_id("MassCB").click()
+        wd.find_elements_by_class_name("left")[1].click()
+        wd.switch_to_alert().accept()
+        self.address_chace = None
+
     def return_home_page(self):
         """Return home page"""
         wd = self.app.wd

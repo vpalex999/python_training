@@ -1,36 +1,37 @@
 # -*- coding: utf-8 -*-
+
 from random import randrange
+import random
+import string
+import pytest
 from model.address import Address
 
 
-def test_del_address(app):
-    if not app.address.count():
-        app.address.app.address.new_address_page()
-        app.address.create(Address("Иван", "Иванович", "Иванов", "ivan", "soft", "software", "г. Екатеринбург",
-                                   "8(343)2102101", "8(922)1234567", "8(343)7654321", "8(343)6543721", "ivanov@mail.ru",
-                                   "ivanov@ya.ru", "ivanov@rambler.ru", "ivanov.com", "г. Москва", "8(495)7654673",
-                                   "йцукен"))
-        app.address.return_home_page()
-    old_addresses = app.address.get_addresses_list()
-    app.address.del_first_address()
-    new_addresses = app.address.get_addresses_list()
-    assert len(old_addresses) -1 == app.address.count()
-    old_addresses[0:1] = []
-    assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
+def random_string(prefix, maxlen):
+    symbols = f"{string.ascii_letters}{string.digits}" + " "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-def test_del_random_address(app):
+testdata = [
+        Address(name=random_string("name", 10), lname=random_string("lname", 10))
+    ]
+
+
+@pytest.mark.parametrize("address", testdata, ids=[repr(x) for x in testdata])
+def test_del_random_address(app, address):
     if not app.address.count():
-        app.address.app.address.new_address_page()
-        app.address.create(Address("Иван", "Иванович", "Иванов", "ivan", "soft", "software", "г. Екатеринбург",
-                                   "8(343)2102101", "8(922)1234567", "8(343)7654321", "8(343)6543721", "ivanov@mail.ru",
-                                   "ivanov@ya.ru", "ivanov@rambler.ru", "ivanov.com", "г. Москва", "8(495)7654673",
-                                   "йцукен"))
-        app.address.return_home_page()
+        app.address.create(address)
     old_addresses = app.address.get_addresses_list()
     index = randrange(len(old_addresses))
     app.address.del_address_by_index(index)
-    new_addresses = app.address.get_addresses_list()
     assert len(old_addresses) -1 == app.address.count()
-    old_addresses[index:index+1] = []
-    assert sorted(old_addresses, key=Address.id_or_max) == sorted(new_addresses, key=Address.id_or_max)
+
+
+@pytest.mark.parametrize("address", testdata, ids=[repr(x) for x in testdata])
+def test_delete_all_addresses(app, address):
+    if not app.address.count():
+        app.address.create(address)
+    app.address.del_all_address()
+    assert len(app.address.get_addresses_list()) == 0
+
+
