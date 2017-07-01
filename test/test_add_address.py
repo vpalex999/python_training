@@ -6,6 +6,7 @@ import pytest
 
 from model.address import Address
 
+
 def random_string(prefix, maxlen):
     symbols = f"{string.ascii_letters}{string.digits}"
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
