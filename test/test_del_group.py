@@ -1,20 +1,37 @@
 # -*- coding: utf-8 -*-
 
 from random import randrange
+import random
+import string
+import pytest
 from model.group import Group
 
+def random_string(prefix, maxlen):
+    symbols = f"{string.ascii_letters}{string.digits}" + " "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-def test_delete_some_group(app):
 
-    app.group.open_groups_page()
+testdata = [Group(name="", header="", footer="")] + [
+    Group(name=random_string("name", 10), header=random_string("header", 10), footer=random_string("footer", 10))
+    for i in range(5)
+    ]
+
+
+@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
+def test_delete_some_group(app, group):
+
     if not app.group.count():
-        app.group.create(Group(name="Create group"))
-        app.group.return_to_groups_page()
+        app.group.create(group)
     old_groups = app.group.get_group_list()
     index = randrange(len(old_groups))
     app.group.delete_group_by_index(index)
-    new_groups = app.group.get_group_list()
     assert len(old_groups) - 1 == app.group.count()
-    old_groups[index:index+1] = []
-    if old_groups and new_groups:
-        assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
+
+@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
+def test_delete_all_group(app, group):
+    if not app.group.count():
+        app.group.create(group)
+    app.group.delete_all_group()
+    assert len(app.group.get_group_list()) == 0
+

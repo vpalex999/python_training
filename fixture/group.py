@@ -6,6 +6,7 @@ class GroupHelper(object):
 
     def __init__(self, app):
         self.app = app
+        self.group_chace = None
 
     def open_groups_page(self):
         # open groups page
@@ -34,7 +35,7 @@ class GroupHelper(object):
         self.fill_group_form(group)
         # submit group creation
         wd.find_element_by_name("submit").click()
-        self.return_home_page()
+        self.return_to_groups_page()
         self.group_chace = None
 
     def fill_group_form(self, group):
@@ -55,8 +56,18 @@ class GroupHelper(object):
             self.select_group_by_index(index)
             # submit deletions
             wd.find_element_by_name("delete").click()
-            self.return_home_page()
+            self.return_to_groups_page()
             self.group_chace = None
+
+    def delete_all_group(self):
+        """Delete all group"""
+        wd = self.app.wd
+        self.open_groups_page()
+        for group in wd.find_elements_by_name("selected[]"):
+            group.click()
+        wd.find_element_by_name("delete").click()
+        self.group_chace = None
+
 
     def select_first_group(self):
         wd = self.app.wd
@@ -82,7 +93,6 @@ class GroupHelper(object):
         # submit modification
         wd.find_element_by_name("update").click()
         self.return_to_groups_page()
-        self.return_home_page()
         self.group_chace = None
 
     def change_field_value(self, field_name, text):
@@ -98,7 +108,7 @@ class GroupHelper(object):
         self.open_groups_page()
         return len(wd.find_elements_by_name("selected[]"))
 
-    group_chace = None
+
 
     def get_group_list(self):
         if self.group_chace is None:
@@ -110,3 +120,5 @@ class GroupHelper(object):
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_chace.append(Group(name=text, id=id))
         return list(self.group_chace)
+
+
