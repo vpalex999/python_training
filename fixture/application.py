@@ -30,7 +30,6 @@ class Application(object):
         if not (wd.current_url.endswith("/addressbook/") and wd.find_element_by_name("searchstring")):
             wd.get(self.base_url)
 
-
     def is_valid(self):
         try:
             self.wd.current_url

@@ -37,6 +37,8 @@ class Address:
         self.all_email_from_home_page = all_email_from_home_page
 
     def id_or_max(self):
+        self.name = self.clear(self.name)
+        self.lname = self.clear(self.lname)
         if self.id:
             return int(self.id)
         else:
@@ -49,3 +51,8 @@ class Address:
         return (self.id is None or other.id is None or self.id == other.id) and\
                (self.name is None or other.name is None or self.name == other.name) and\
                (self.lname is None or other.lname is None or self.lname == other.lname)
+
+
+    def clear(self, s):
+        if s is not None:
+            return re.sub(" ", "", s)
