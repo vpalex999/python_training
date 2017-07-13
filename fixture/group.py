@@ -59,6 +59,19 @@ class GroupHelper(object):
             self.return_to_groups_page()
             self.group_chace = None
 
+    def delete_group_by_id(self, id):
+        # select first group
+        wd = self.app.wd
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        # submit deletions
+        wd.find_element_by_name("delete").click()
+        self.return_to_groups_page()
+        self.group_chace = None
+
+
+
+
     def delete_all_group(self):
         """Delete all group"""
         wd = self.app.wd
@@ -76,6 +89,10 @@ class GroupHelper(object):
     def select_group_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_group_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
 
     def modify_first_group(self, new_group_data):
         """Modify first Group"""
