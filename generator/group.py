@@ -10,7 +10,7 @@ from model.group import Group
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:--browser: --check_ui", ["number of groups", "file", "browser", "check_ui"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
