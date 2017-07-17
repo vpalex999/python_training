@@ -28,6 +28,15 @@ class AddressHelper(object):
         wd.switch_to_alert().accept()
         self.address_chace = None
 
+    def delete_address_by_id(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+        # submit deletions
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
+        self.address_chace = None
+
     def del_all_address(self):
         wd = self.app.wd
         self.return_home_page()
@@ -64,10 +73,28 @@ class AddressHelper(object):
         wd.find_element_by_name("update").click()
         self.address_chace = None
 
+    def update_address_by_id(self, addr, id):
+        wd = self.app.wd
+        self.return_home_page()
+        self.open_contact_to_view_by_id(id)
+        self.input_fields(addr)
+        # submit Update
+        wd.find_element_by_name("update").click()
+        self.address_chace = None
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.return_home_page()
         wd.find_elements_by_name("entry")[index].find_element_by_xpath("td[8]/a/img").click()
+
+    def open_contact_to_view_by_id(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        for element in wd.find_elements_by_name("entry"):
+            if element.find_element_by_name("selected[]").get_attribute("value") == id:
+                element.find_element_by_xpath("td[8]/a/img").click()
+                break
+
 
     def open_contact_to_view_by_index(self, index):
         wd = self.app.wd
