@@ -10,7 +10,7 @@ from model.address import Address
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:browser:check_ui:", ["number of contacts", "file", "browser", "check_ui"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)

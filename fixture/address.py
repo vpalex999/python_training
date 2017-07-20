@@ -218,10 +218,11 @@ class AddressHelper(object):
                 all_email = td[4].text
                 all_phone = td[5].text
                 if all_phone:
-                    self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id,
-                                                      all_address_from_home_page=all_addr,
-                                                      all_phones_from_home_page=all_phone,
-                                                      all_email_from_home_page= all_email))
+                    addr = Address(name=td[2].text, lname=td[1].text, id=id,\
+                                                      all_address_from_home_page=all_addr,\
+                                                      all_phones_from_home_page=all_phone,\
+                                                      all_email_from_home_page=all_email)
+                    self.address_chace.append(addr)
                 else:
                     self.address_chace.append(Address(name=td[2].text, lname=td[1].text, id=id))
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import re
 import mysql.connector
 from model.group import Group
 from model.address import Address
@@ -26,16 +26,18 @@ class DbFixture(object):
         return group
 
     def get_address_list(self):
-        address = []
+        addresses = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname from addressbook where deprecated='0000-00-00 00:00:00'")
+            cursor.execute("select id, firstname, lastname, address, email, email2, email3, home, mobile, work, fax, phone2 from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, firstname, lastname) = row
-                address.append(Address(id=str(id), name=firstname, lname=lastname))
+                (id, firstname, lastname, address, email, email2, email3, home, mobile, work, fax, phone2) = row
+                addresses.append(Address(id=str(id), name=firstname, lname=lastname, address=address, email=email,
+                                       email2=email2, email3=email3,
+                                       phone=home, mobile=mobile, workphone=work, fax=fax, phone2=phone2))
         finally:
             cursor.close()
-        return address
+        return addresses
 
     def destroy(self):
         self.connection.close()
