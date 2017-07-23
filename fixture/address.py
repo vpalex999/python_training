@@ -31,11 +31,23 @@ class AddressHelper(object):
     def delete_address_by_id(self, id):
         wd = self.app.wd
         self.return_home_page()
-        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+        self.selected_by_id(id)
         # submit deletions
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.address_chace = None
+
+    def selected_by_id(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
+
+    def insert_address_in_group_by_id(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        to_group = wd.find_element_by_name("to_group")
+        to_group.find_element_by_css_selector("option[value='{}']".format(id)).click()
+        wd.find_element_by_name("add").click()
 
     def del_all_address(self):
         wd = self.app.wd
