@@ -53,8 +53,12 @@ class Address:
         return (self.id is None or other.id is None or self.id == other.id) and\
                (self.name is None or other.name is None or self.name == other.name) and\
                (self.lname is None or other.lname is None or self.lname == other.lname) and\
-               (self.all_phones_from_home_page is None or other.all_phones_from_home_page is None or self.all_phones_from_home_page == other.all_phones_from_home_page) and\
-               (self.all_email_from_home_page is None or other.all_email_from_home_page is None or self.all_email_from_home_page == other.all_email_from_home_page)
+               (self.all_phones_from_home_page is None or other.all_phones_from_home_page is None or
+                self.all_phones_from_home_page == "" or other.all_phones_from_home_page == "" or
+                self.all_phones_from_home_page == other.all_phones_from_home_page) and\
+               (self.all_email_from_home_page is None or other.all_email_from_home_page is None or
+                self.all_email_from_home_page == "" or other.all_email_from_home_page == "" or
+                self.all_email_from_home_page == other.all_email_from_home_page)
 
 
     def clear(self, s):

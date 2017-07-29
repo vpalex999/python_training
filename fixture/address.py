@@ -37,17 +37,45 @@ class AddressHelper(object):
         wd.switch_to_alert().accept()
         self.address_chace = None
 
+    def delete_address_from_group_by_id(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        self.selected_by_id(id)
+        wd.find_element_by_css_selector("input[name='{}']".format('remove')).click()
+
     def selected_by_id(self, id):
         wd = self.app.wd
         self.return_home_page()
         wd.find_element_by_css_selector("input[value='{}']".format(id)).click()
 
+    def select_all_groups(self):
+        wd = self.app.wd
+        self.return_home_page()
+        from_group = wd.find_element_by_name("group")
+        from_group.find_element_by_css_selector("option:nth-child(2)").click()
+
+        # from_group.find_element_by_css_selector("input[value='']").click()
+
+    # right > select:nth-child(1) > option:nth-child(2)
+
     def insert_address_in_group_by_id(self, id):
         wd = self.app.wd
         self.return_home_page()
         to_group = wd.find_element_by_name("to_group")
-        to_group.find_element_by_css_selector("option[value='{}']".format(id)).click()
+        self.selected_group(to_group, id)
         wd.find_element_by_name("add").click()
+        self.address_chace = None
+
+
+    def selected_group(self,selector, id):
+        selector.find_element_by_css_selector("option[value='{}']".format(id)).click()
+
+    def to_select_group(self, id):
+        wd = self.app.wd
+        self.return_home_page()
+        from_group = wd.find_element_by_name("group")
+        self.selected_group(from_group, id)
+
 
     def del_all_address(self):
         wd = self.app.wd
@@ -216,6 +244,11 @@ class AddressHelper(object):
         return len(wd.find_elements_by_name("selected[]"))
 
     address_chace = None
+
+    def get_address_in_group(self, select_group):
+        self.return_home_page()
+        self.to_select_group(select_group.id)
+        return self.get_addresses_list()
 
     def get_addresses_list(self):
         """Great list with addresses"""

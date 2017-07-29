@@ -59,6 +59,12 @@ class ORMFixture(object):
         return self.convert_contact_to_model(select(c for c in ORMFixture.ORMAddress if c.deprecated is None))
 
     @db_session
+    def get_all_address_to_group(self):
+        orm_group = list(select(g for g in ORMFixture.ORMGroup ))[0]
+        orm_address = list(select(c for c in ORMFixture.ORMAddress if c.deprecated is None and orm_group in c.groups ))
+        return orm_address
+
+    @db_session
     def get_address_in_group(self, group):
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
         return  self.convert_contact_to_model(orm_group.contacts)
