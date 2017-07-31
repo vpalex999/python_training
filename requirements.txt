@@ -1,6 +1,6 @@
 pytest
 pytest-bdd
-selenium (2.53.6)
+selenium-2.53.6
 jsonpickle
 pony
 PyMySQL
