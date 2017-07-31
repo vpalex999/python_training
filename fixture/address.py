@@ -94,6 +94,7 @@ class AddressHelper(object):
     def create(self, addr):
         """Create new address"""
         wd = self.app.wd
+        self.return_home_page()
         self.new_address_page()
         self.input_fields(addr)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
