@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.2 (Python 3.6.0 on win32)" generated="20170801 09:57:10.853">
+<suite id="s1" name="Address Scenarios" source="D:\programming\testing_from_python\python_training\rf\address_scenarios.robot">
+<kw name="Init Fixtures" library="rf.AddressBook" type="setup">
+<status status="PASS" starttime="20170801 09:57:11.021" endtime="20170801 09:57:20.071"></status>
+</kw>
+<test id="s1-t1" name="Add new address">
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${old_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:20.075" level="INFO">${old_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name1, lname2...</msg>
+<status status="PASS" starttime="20170801 09:57:20.072" endtime="20170801 09:57:20.075"></status>
+</kw>
+<kw name="New Address" library="rf.AddressBook">
+<arguments>
+<arg>name1</arg>
+<arg>lmane1</arg>
+</arguments>
+<assign>
+<var>${address}</var>
+</assign>
+<msg timestamp="20170801 09:57:20.076" level="INFO">${address} = name1, lmane1, None, None, None</msg>
+<status status="PASS" starttime="20170801 09:57:20.076" endtime="20170801 09:57:20.076"></status>
+</kw>
+<kw name="Create Address" library="rf.AddressBook">
+<arguments>
+<arg>${address}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:20.076" endtime="20170801 09:57:21.906"></status>
+</kw>
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${new_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:21.910" level="INFO">${new_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name1, lname2...</msg>
+<status status="PASS" starttime="20170801 09:57:21.906" endtime="20170801 09:57:21.910"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${old_list}</arg>
+<arg>${address}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:21.911" endtime="20170801 09:57:21.912"></status>
+</kw>
+<kw name="Address Lists Should Be Equal" library="rf.AddressBook">
+<arguments>
+<arg>${new_list}</arg>
+<arg>${old_list}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:21.914" endtime="20170801 09:57:21.915"></status>
+</kw>
+<status status="PASS" starttime="20170801 09:57:20.071" endtime="20170801 09:57:21.916" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Delete Address">
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${old_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:21.921" level="INFO">${old_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name1, lname2...</msg>
+<status status="PASS" starttime="20170801 09:57:21.918" endtime="20170801 09:57:21.921"></status>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<arguments>
+<arg>${old_list}</arg>
+</arguments>
+<assign>
+<var>${len}</var>
+</assign>
+<msg timestamp="20170801 09:57:21.922" level="INFO">Length is 19</msg>
+<msg timestamp="20170801 09:57:21.922" level="INFO">${len} = 19</msg>
+<status status="PASS" starttime="20170801 09:57:21.922" endtime="20170801 09:57:21.922"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>random.randrange(${len})</arg>
+<arg>random</arg>
+</arguments>
+<assign>
+<var>${index}</var>
+</assign>
+<msg timestamp="20170801 09:57:21.923" level="INFO">${index} = 6</msg>
+<status status="PASS" starttime="20170801 09:57:21.922" endtime="20170801 09:57:21.923"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${old_list}</arg>
+<arg>${index}</arg>
+</arguments>
+<assign>
+<var>${address}</var>
+</assign>
+<msg timestamp="20170801 09:57:21.924" level="INFO">${address} = name1, lname2, 837, None, None</msg>
+<status status="PASS" starttime="20170801 09:57:21.923" endtime="20170801 09:57:21.924"></status>
+</kw>
+<kw name="Delete Address" library="rf.AddressBook">
+<arguments>
+<arg>${address}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:21.924" endtime="20170801 09:57:22.552"></status>
+</kw>
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${new_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.557" level="INFO">${new_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name, lnameIX...</msg>
+<status status="PASS" starttime="20170801 09:57:22.553" endtime="20170801 09:57:22.557"></status>
+</kw>
+<kw name="Remove Values From List" library="Collections">
+<doc>Removes all occurrences of given ``values`` from ``list``.</doc>
+<arguments>
+<arg>${old_list}</arg>
+<arg>${address}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:22.558" endtime="20170801 09:57:22.558"></status>
+</kw>
+<kw name="Address Lists Should Be Equal" library="rf.AddressBook">
+<arguments>
+<arg>${new_list}</arg>
+<arg>${old_list}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:22.559" endtime="20170801 09:57:22.560"></status>
+</kw>
+<status status="PASS" starttime="20170801 09:57:21.917" endtime="20170801 09:57:22.561" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Modify Address">
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${old_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.568" level="INFO">${old_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name, lnameIX...</msg>
+<status status="PASS" starttime="20170801 09:57:22.564" endtime="20170801 09:57:22.568"></status>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<arguments>
+<arg>${old_list}</arg>
+</arguments>
+<assign>
+<var>${len}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.569" level="INFO">Length is 18</msg>
+<msg timestamp="20170801 09:57:22.569" level="INFO">${len} = 18</msg>
+<status status="PASS" starttime="20170801 09:57:22.568" endtime="20170801 09:57:22.569"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>random.randrange(${len})</arg>
+<arg>random</arg>
+</arguments>
+<assign>
+<var>${index}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.570" level="INFO">${index} = 11</msg>
+<status status="PASS" starttime="20170801 09:57:22.569" endtime="20170801 09:57:22.570"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${old_list}</arg>
+<arg>${index}</arg>
+</arguments>
+<assign>
+<var>${address}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.570" level="INFO">${address} = name1, lmane1, 849, None, None</msg>
+<status status="PASS" starttime="20170801 09:57:22.570" endtime="20170801 09:57:22.570"></status>
+</kw>
+<kw name="New Address" library="rf.AddressBook">
+<arguments>
+<arg>name1</arg>
+<arg>lmane1</arg>
+</arguments>
+<assign>
+<var>${new_address}</var>
+</assign>
+<msg timestamp="20170801 09:57:22.571" level="INFO">${new_address} = name1, lmane1, None, None, None</msg>
+<status status="PASS" starttime="20170801 09:57:22.571" endtime="20170801 09:57:22.571"></status>
+</kw>
+<kw name="Modify Address" library="rf.AddressBook">
+<arguments>
+<arg>${new_address}</arg>
+<arg>${address}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:22.571" endtime="20170801 09:57:25.216"></status>
+</kw>
+<kw name="Get Address List" library="rf.AddressBook">
+<assign>
+<var>${new_list}</var>
+</assign>
+<msg timestamp="20170801 09:57:25.220" level="INFO">${new_list} = [, , 816, None, None, name2, lname3, 819, None, None, nameEy3eJKU, lname, 823, None, None, name1, lname2, 833, None, None, name1, lname2, 835, None, None, name2, lname3, 836, None, None, name, lnameIX...</msg>
+<status status="PASS" starttime="20170801 09:57:25.216" endtime="20170801 09:57:25.220"></status>
+</kw>
+<kw name="Address Lists Should Be Equal" library="rf.AddressBook">
+<arguments>
+<arg>${new_list}</arg>
+<arg>${old_list}</arg>
+</arguments>
+<status status="PASS" starttime="20170801 09:57:25.221" endtime="20170801 09:57:25.221"></status>
+</kw>
+<status status="PASS" starttime="20170801 09:57:22.563" endtime="20170801 09:57:25.222" critical="yes"></status>
+</test>
+<kw name="Destroy Fixtures" library="rf.AddressBook" type="teardown">
+<status status="PASS" starttime="20170801 09:57:25.224" endtime="20170801 09:57:25.359"></status>
+</kw>
+<status status="PASS" starttime="20170801 09:57:10.855" endtime="20170801 09:57:25.359"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0">Critical Tests</stat>
+<stat pass="3" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" id="s1" name="Address Scenarios">Address Scenarios</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

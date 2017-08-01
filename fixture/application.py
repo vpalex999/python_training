@@ -17,7 +17,7 @@ class Application(object):
         else:
             raise ValueError(f"Unrecognized browser {browser}")
 
-        # self.wd.implicitly_wait(5)
+        self.wd.implicitly_wait(3)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.address = AddressHelper(self)
